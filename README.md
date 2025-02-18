@@ -1,55 +1,79 @@
-# bOOkp
+# 
 
-Quick'n'dirty script to download all you Kindle ebooks.
+This tool automates the process of downloading your Amazon Kindle e-books for personal backup. It works by logging into your Amazon account, retrieving your e-book and device lists, and then downloading the books for a selected device. After downloading, you can use [ApprenticeHarper's DeDRM tools](https://github.com/apprenticeharper/DeDRM_tools) with the provided device serial number to remove DRM.
 
-I needed to backup all my Kindle e-books, so put together this script. It does
-work for now, but a change in the download process will probably break it, and I
-may not have the time to fix it right away.
+> **Important:**  
+> This tool is intended only for personal backups of content you legally own. Use it responsibly and in accordance with applicable laws.
 
-You can download all your e-books (that are eligible for download), or you can
-specify multiple ASINs to download. By default the script will only display
-warnings, errors, and a finish message. If you want to see progress, you have to
-use the `--verbose` flag. Selenium with ChromeDriver is used to handle login,
-and you can display the browser with `--showbrowser` - this may come handy if
-something goes wrong.
+## Features
 
-The only mandatory command line parameter is the e-mail address associated with
-your Amazon account, but of course the script will need your password too - it
-will ask for it if not given as parameter. Keep in mind that passwords given as
-parameters will probably be stored in you history!
+- **Manual Login (Default):**  
+  Opens a visible browser window for you to log in manually (including MFA if required).
 
-The script will also ask which of your devices you want to download your books
-to. This is important, because the downloaded books will be DRMd to that
-particular device. The serial number (which is required to remove DRM) will be
-printed when the books are downloaded.
+- **Automated Login Fallback:**  
+  If manual login fails, the script will prompt you to attempt an automated login using backup credentials.
+
+- **Device Selection:**  
+  After logging in, the script retrieves your registered Kindle devices. You choose one from which your e-books will be downloaded.
+
+- **Duplicate Skipping:**  
+  Files that already exist in the output directory are skipped.
+
+## Prerequisites
+
+- **Python 3.x**
+
+- **Google Chrome Browser**
+
+- **ChromeDriver:**  
+  You must install ChromeDriver (matching your installed version of Chrome) and ensure it is available in your system's PATH.  
+  - Download ChromeDriver from: [https://chromedriver.chromium.org/downloads](https://chromedriver.chromium.org/downloads)  
+  - On macOS, you can install it via Homebrew (if available) or manually place the binary in a folder in your PATH.
+
+- **Other Python Dependencies:**  
+  The following Python packages are required:
+  - `requests`
+  - `selenium`
+  - `pyvirtualdisplay`
+
+## Installation
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/dorkknight/kindlebackup.git
+   cd kindlebackup
+
+2. Create and Activate a Virtual Environment (Optional but Recommended):
+
+python3 -m venv myenv
+source myenv/bin/activate  # On Windows: myenv\Scripts\activate
+
+3. Install Python Dependencies:
+
+pip install -r requirements.txt
+
+4. Install ChromeDriver:
+
+Ensure that ChromeDriver is installed and available in your system's PATH.
+
+Download ChromeDriver
+
+For macOS users, if Homebrew provides a compatible version, you can try:
+
+brew install --cask chromedriver
+
+Otherwise, download the correct version manually and place it in a directory included in your PATH.
 
 ## Usage
 
-```
-usage: bookp.py [-h] [--verbose] [--showbrowser] --email EMAIL
-                [--password PASSWORD] [--outputdir OUTPUTDIR] [--proxy PROXY]
-                [--asin [ASIN [ASIN ...]]]
+By default, the script uses manual login via a visible browser window.
 
-Amazon e-book downloader.
+Basic Usage (Manual Login)
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --verbose             show info messages
-  --showbrowser         display browser while creating session.
-  --email EMAIL         Amazon account e-mail address
-  --password PASSWORD   Amazon account password
-  --outputdir OUTPUTDIR
-                        download directory (default: books)
-  --proxy PROXY         HTTP proxy server
-  --asin [ASIN [ASIN ...]]
-                        list of ASINs to download
-```
-
-## Requirements
-
-* [Python 3.x](https://www.python.org)
-* [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
-* the following Python modules:
-  * [requests](https://pypi.org/project/requests/)
-  * [PyVirtualDisplay](https://pypi.org/project/PyVirtualDisplay/)
-  * [selenium](https://pypi.org/project/selenium/)
+Simply run the script without any credentials. It will open a browser for you to log in manually:
+python3 kindlebackup.py --outputdir ./books
+When you run the script:
+Manual Login:
+The browser will open at https://www.amazon.com/gp/sign-in.html.
+Log in manually (including MFA, if required) and then return to the terminal and press Enter.
