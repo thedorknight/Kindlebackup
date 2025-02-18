@@ -1,4 +1,4 @@
-# Kindle Backup
+# Kindle Bulk Backup
 
 Forked from https://github.com/sghctoma/bOOkp
 
@@ -43,7 +43,7 @@ This tool automates the process of downloading your Amazon Kindle e-books for pe
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/dorkknight/kindlebackup.git
+   git clone https://github.com/dorkknight/kindlebulkbackup.git
    cd kindlebackup
 
 2. Create and Activate a Virtual Environment (Optional but Recommended):
@@ -73,8 +73,11 @@ By default, the script uses manual login via a visible browser window.
 
 Basic Usage (Manual Login)
 
-Simply run the script without any credentials. It will open a browser for you to log in manually:
+Simply run the script without any credentials. 
+
+It will open a browser for you to log in manually:
 python3 kindlebackup.py --outputdir ./books
+
 When you run the script:
 Manual Login:
 The browser will open
