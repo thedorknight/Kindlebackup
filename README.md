@@ -75,5 +75,5 @@ Simply run the script without any credentials. It will open a browser for you to
 python3 kindlebackup.py --outputdir ./books
 When you run the script:
 Manual Login:
-The browser will open at https://www.amazon.com/gp/sign-in.html.
+The browser will open
 Log in manually (including MFA, if required) and then return to the terminal and press Enter.
